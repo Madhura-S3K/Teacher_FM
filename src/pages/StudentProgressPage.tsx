@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { ClassSelector } from '../components/ClassSelector';
 import { ProgressKpiCard } from '../components/ProgressKpiCard';
 import { StudentTable } from '../components/StudentTable';
+import { StudentDetailDrawer } from '../components/StudentDetailDrawer';
 import { Footer } from '../components/Footer';
+import type { StudentDetail } from '../data/studentsData';
 
 import { Users, TrendingUp, CheckCircle2, AlertTriangle, Download } from 'lucide-react';
 
 export const StudentProgressPage: React.FC = () => {
+  const [selectedStudent, setSelectedStudent] = useState<StudentDetail | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleSelectStudent = (student: StudentDetail) => {
+    setSelectedStudent(student);
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+    setSelectedStudent(null);
+  };
+
   return (
-    <div className="min-h-screen bg-[#fcfcfd] dark:bg-[#101014] flex flex-col md:flex-row antialiased selection:bg-purple-100 dark:selection:bg-purple-900/40 transition-colors">
+    <div className="min-h-screen bg-[#fcfcfd] dark:bg-[#101014] flex flex-col md:flex-row antialiased selection:bg-purple-100 dark:selection:bg-purple-900/40 transition-colors relative">
       {/* Left Sidebar */}
       <Sidebar />
 
@@ -86,12 +101,19 @@ export const StudentProgressPage: React.FC = () => {
           </div>
 
           {/* Student Table Section */}
-          <StudentTable />
+          <StudentTable onSelectStudent={handleSelectStudent} />
         </main>
 
         {/* Footer */}
         <Footer />
       </div>
+
+      {/* Slide-Over Right Student Detail Drawer */}
+      <StudentDetailDrawer
+        student={selectedStudent}
+        isOpen={isDrawerOpen}
+        onClose={handleCloseDrawer}
+      />
     </div>
   );
 };

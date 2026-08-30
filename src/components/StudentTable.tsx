@@ -1,107 +1,24 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown, Star, Check, Clock, AlertTriangle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { studentsData } from '../data/studentsData';
+import type { StudentDetail } from '../data/studentsData';
 
-export interface StudentRecord {
-  id: string;
-  name: string;
-  initials: string;
-  initialsBg: string;
-  initialsText: string;
-  progress: number;
-  progressColor: string;
-  modules: string;
-  avgQuiz: string;
-  quizColor?: string;
-  lastActive: string;
-  status: 'Excellent' | 'On Track' | 'Needs Support' | 'Needs Attention';
-  nameColor?: string;
+interface StudentTableProps {
+  onSelectStudent: (student: StudentDetail) => void;
 }
 
-const sampleStudents: StudentRecord[] = [
-  {
-    id: '1',
-    name: 'Alex Chen',
-    initials: 'AC',
-    initialsBg: 'bg-emerald-100 dark:bg-emerald-950/60',
-    initialsText: 'text-emerald-700 dark:text-emerald-300',
-    progress: 92,
-    progressColor: 'bg-[#15ab5d]',
-    modules: '18/20',
-    avgQuiz: '94%',
-    quizColor: 'text-[#15ab5d] font-bold',
-    lastActive: 'Today',
-    status: 'Excellent',
-  },
-  {
-    id: '2',
-    name: 'Sam Rivera',
-    initials: 'SR',
-    initialsBg: 'bg-blue-100 dark:bg-blue-950/60',
-    initialsText: 'text-blue-700 dark:text-blue-300',
-    progress: 86,
-    progressColor: 'bg-[#15ab5d]',
-    modules: '17/20',
-    avgQuiz: '89%',
-    quizColor: 'text-[#15ab5d] font-bold',
-    lastActive: 'Today',
-    status: 'On Track',
-  },
-  {
-    id: '3',
-    name: 'Jordan Lee',
-    initials: 'JL',
-    initialsBg: 'bg-pink-100 dark:bg-pink-950/60',
-    initialsText: 'text-pink-700 dark:text-pink-300',
-    progress: 71,
-    progressColor: 'bg-pink-500',
-    modules: '14/20',
-    avgQuiz: '76%',
-    lastActive: '2 days ago',
-    status: 'Needs Support',
-  },
-  {
-    id: '4',
-    name: 'Madhura Patil',
-    initials: 'MP',
-    initialsBg: 'bg-red-100 dark:bg-red-950/60',
-    initialsText: 'text-red-700 dark:text-red-300',
-    progress: 68,
-    progressColor: 'bg-red-500',
-    modules: '13/20',
-    avgQuiz: '72%',
-    quizColor: 'text-red-600 dark:text-red-400 font-bold',
-    lastActive: '3 days ago',
-    status: 'Needs Attention',
-    nameColor: 'text-red-700 dark:text-red-400 font-bold',
-  },
-  {
-    id: '5',
-    name: 'David K.',
-    initials: 'DK',
-    initialsBg: 'bg-red-100 dark:bg-red-950/60',
-    initialsText: 'text-red-700 dark:text-red-300',
-    progress: 54,
-    progressColor: 'bg-red-600',
-    modules: '10/20',
-    avgQuiz: '61%',
-    quizColor: 'text-red-600 dark:text-red-400 font-bold',
-    lastActive: '5 days ago',
-    status: 'Needs Attention',
-  },
-];
-
-export const StudentTable: React.FC = () => {
+export const StudentTable: React.FC<StudentTableProps> = ({ onSelectStudent }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('All Students');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredStudents = sampleStudents.filter((student) => {
+  const filteredStudents = studentsData.filter((student) => {
     const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase());
     if (activeFilter === 'All Students') return matchesSearch;
     return matchesSearch && student.status === activeFilter;
   });
 
-  const renderStatusBadge = (status: StudentRecord['status']) => {
+  const renderStatusBadge = (status: StudentDetail['status']) => {
     switch (status) {
       case 'Excellent':
         return (
@@ -203,9 +120,15 @@ export const StudentTable: React.FC = () => {
                 {/* Student Avatar + Name */}
                 <td className="py-4 px-6 font-semibold text-gray-900 dark:text-[#f5f5f5]">
                   <div className="flex items-center space-x-3">
-                    <div className={`w-8 h-8 rounded-full ${student.initialsBg} ${student.initialsText} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
-                      {student.initials}
-                    </div>
+                    {student.avatarUrl ? (
+                      <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700 flex-shrink-0">
+                        <img src={student.avatarUrl} alt={student.name} className="w-full h-full object-cover" />
+                      </div>
+                    ) : (
+                      <div className={`w-8 h-8 rounded-full ${student.initialsBg} ${student.initialsText} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
+                        {student.initials}
+                      </div>
+                    )}
                     <span className={student.nameColor || 'text-gray-900 dark:text-[#f5f5f5]'}>
                       {student.name}
                     </span>
@@ -216,12 +139,12 @@ export const StudentTable: React.FC = () => {
                 <td className="py-4 px-6">
                   <div className="flex items-center space-x-3 max-w-[160px]">
                     <span className="font-bold text-gray-900 dark:text-[#f5f5f5] text-xs w-8">
-                      {student.progress}%
+                      {student.overallProgress}%
                     </span>
                     <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                       <div
                         className={`h-full ${student.progressColor} rounded-full transition-all duration-300`}
-                        style={{ width: `${student.progress}%` }}
+                        style={{ width: `${student.overallProgress}%` }}
                       />
                     </div>
                   </div>
@@ -250,7 +173,7 @@ export const StudentTable: React.FC = () => {
                 {/* Action Button */}
                 <td className="py-4 px-6 text-right">
                   <button
-                    onClick={() => alert(`View student details for ${student.name}`)}
+                    onClick={() => onSelectStudent(student)}
                     className={`px-3.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer border ${
                       student.status === 'Needs Attention'
                         ? 'border-red-500 text-red-500 hover:bg-red-500 hover:text-white'
