@@ -1,88 +1,158 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutGrid, TrendingUp, Settings, HelpCircle, LogOut } from 'lucide-react';
+import {
+  LayoutGrid,
+  TrendingUp,
+  Settings,
+  HelpCircle,
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    return localStorage.getItem('futureminds_sidebar_collapsed') === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('futureminds_sidebar_collapsed', String(isCollapsed));
+  }, [isCollapsed]);
+
   const handleLogout = () => {
     navigate('/');
   };
 
+  const navItems = [
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      path: '/teacher/dashboard',
+      icon: LayoutGrid,
+    },
+    {
+      id: 'student-progress',
+      label: 'Student Progress',
+      path: '/teacher/student-progress',
+      icon: TrendingUp,
+    },
+    {
+      id: 'settings',
+      label: 'Settings',
+      path: '/teacher/settings',
+      icon: Settings,
+    },
+  ];
+
   return (
-    <aside className="w-64 bg-[#f7f1ff] dark:bg-[#121218] border-r border-purple-100/60 dark:border-[#27272f] min-h-screen p-6 flex flex-col justify-between flex-shrink-0 transition-colors">
-      {/* Top Header & Navigation */}
-      <div>
-        {/* Brand Header */}
-        <div className="mb-8">
-          <h1 className="text-xl font-bold text-[#15ab5d] tracking-tight">
-            FutureMinds AI
-          </h1>
-          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
-            Teacher Portal
-          </p>
+    <aside
+      className={`bg-[#f7f1ff] dark:bg-[#121218] border-r border-purple-100/60 dark:border-[#27272f] min-h-screen flex flex-col justify-between flex-shrink-0 transition-all duration-300 ${
+        isCollapsed ? 'w-20 p-3 items-center' : 'w-64 p-6'
+      }`}
+    >
+      {/* Top Section */}
+      <div className="w-full">
+        {/* Brand Header + Collapse Toggle Button */}
+        <div
+          className={`flex items-center justify-between mb-8 ${
+            isCollapsed ? 'flex-col space-y-4' : 'flex-row'
+          }`}
+        >
+          {isCollapsed ? (
+            <div
+              onClick={() => navigate('/teacher/dashboard')}
+              className="w-10 h-10 rounded-xl bg-[#15ab5d] text-white font-extrabold text-base flex items-center justify-center cursor-pointer shadow-xs"
+              title="FutureMinds AI Teacher Portal"
+            >
+              FM
+            </div>
+          ) : (
+            <div>
+              <h1 className="text-xl font-bold text-[#15ab5d] tracking-tight">
+                FutureMinds AI
+              </h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
+                Teacher Portal
+              </p>
+            </div>
+          )}
+
+          {/* Toggle Button */}
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-purple-100/60 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+            aria-label={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+            title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="w-5 h-5 stroke-[2.2]" />
+            ) : (
+              <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
+            )}
+          </button>
         </div>
 
-        {/* Main Nav Items */}
-        <nav className="space-y-1.5">
-          <button
-            onClick={() => navigate('/teacher/dashboard')}
-            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors cursor-pointer ${
-              location.pathname === '/teacher/dashboard'
-                ? 'bg-[#15ab5d] text-white shadow-xs'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
-            }`}
-          >
-            <LayoutGrid className="w-4 h-4 stroke-[2.2]" />
-            <span>Dashboard</span>
-          </button>
+        {/* Navigation List */}
+        <nav className="space-y-2 w-full">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = location.pathname === item.path;
 
-          <button
-            onClick={() => navigate('/teacher/student-progress')}
-            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors cursor-pointer ${
-              location.pathname === '/teacher/student-progress'
-                ? 'bg-[#15ab5d] text-white shadow-xs'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
-            }`}
-          >
-            <TrendingUp className="w-4 h-4 stroke-[2.2]" />
-            <span>Student Progress</span>
-          </button>
-
-          <button
-            onClick={() => navigate('/teacher/settings')}
-            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors cursor-pointer ${
-              location.pathname === '/teacher/settings'
-                ? 'bg-[#15ab5d] text-white shadow-xs'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
-            }`}
-          >
-            <Settings className="w-4 h-4 stroke-[2.2]" />
-            <span>Settings</span>
-          </button>
+            return (
+              <button
+                key={item.id}
+                onClick={() => navigate(item.path)}
+                title={isCollapsed ? item.label : undefined}
+                className={`w-full flex items-center transition-all cursor-pointer ${
+                  isCollapsed
+                    ? 'justify-center p-3 rounded-xl'
+                    : 'space-x-3 px-4 py-2.5 rounded-xl'
+                } font-semibold text-sm ${
+                  isActive
+                    ? 'bg-[#15ab5d] text-white shadow-xs'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                <Icon className="w-4.5 h-4.5 stroke-[2.2] flex-shrink-0" />
+                {!isCollapsed && <span>{item.label}</span>}
+              </button>
+            );
+          })}
         </nav>
       </div>
 
       {/* Bottom Section */}
-      <div className="pt-6">
-        <div className="border-t border-gray-200/70 dark:border-[#27272f] mb-4" />
+      <div className="w-full pt-6">
+        <div className="border-t border-gray-200/70 dark:border-[#27272f] mb-4 w-full" />
 
-        <div className="space-y-1">
+        <div className="space-y-1 w-full">
           <button
             onClick={() => alert('Help Center: Contact support or view teacher user guide.')}
-            className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+            title={isCollapsed ? 'Help Center' : undefined}
+            className={`w-full flex items-center transition-all cursor-pointer ${
+              isCollapsed
+                ? 'justify-center p-2.5 rounded-lg'
+                : 'space-x-3 px-3 py-2 rounded-lg'
+            } font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-purple-100/40 dark:hover:bg-gray-800/40`}
           >
-            <HelpCircle className="w-4.5 h-4.5 stroke-[2]" />
-            <span>Help Center</span>
+            <HelpCircle className="w-4.5 h-4.5 stroke-[2] flex-shrink-0" />
+            {!isCollapsed && <span>Help Center</span>}
           </button>
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+            title={isCollapsed ? 'Logout' : undefined}
+            className={`w-full flex items-center transition-all cursor-pointer ${
+              isCollapsed
+                ? 'justify-center p-2.5 rounded-lg'
+                : 'space-x-3 px-3 py-2 rounded-lg'
+            } font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-purple-100/40 dark:hover:bg-gray-800/40`}
           >
-            <LogOut className="w-4.5 h-4.5 stroke-[2]" />
-            <span>Logout</span>
+            <LogOut className="w-4.5 h-4.5 stroke-[2] flex-shrink-0" />
+            {!isCollapsed && <span>Logout</span>}
           </button>
         </div>
       </div>
