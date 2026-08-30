@@ -23,7 +23,7 @@ export interface StudentDetail {
   initials: string;
   initialsBg: string;
   initialsText: string;
-  avatarUrl?: string;
+  avatarUrl: string;
   grade: string;
   overallProgress: number;
   progressColor: string;

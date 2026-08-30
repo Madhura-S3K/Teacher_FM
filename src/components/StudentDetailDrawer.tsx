@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, ThumbsUp, XCircle, Flag, Star, Check, Clock, AlertTriangle } from 'lucide-react';
 import type { StudentDetail } from '../data/studentsData';
+import defaultStudentAvatar from '../assets/avatars/default_student.png';
 
 interface StudentDetailDrawerProps {
   student: StudentDetail | null;
@@ -100,17 +101,11 @@ export const StudentDetailDrawer: React.FC<StudentDetailDrawerProps> = ({
           <div className="flex flex-col items-center text-center -mt-4">
             <div className="relative mb-3">
               <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-purple-100 dark:border-gray-700 shadow-md bg-white dark:bg-gray-800 flex items-center justify-center">
-                {student.avatarUrl ? (
-                  <img
-                    src={student.avatarUrl}
-                    alt={student.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className={`text-xl font-extrabold ${student.initialsText}`}>
-                    {student.initials}
-                  </span>
-                )}
+                <img
+                  src={student.avatarUrl || defaultStudentAvatar}
+                  alt={student.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
               {student.status === 'Needs Attention' && (
                 <div className="absolute bottom-0 right-0 bg-red-600 text-white p-1 rounded-full border-2 border-white dark:border-[#1a1a21] shadow-xs">
