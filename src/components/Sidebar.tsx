@@ -39,16 +39,24 @@ export const Sidebar: React.FC = () => {
           </button>
 
           <button
-            onClick={() => {}}
-            className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+            onClick={() => navigate('/teacher/student-progress')}
+            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors cursor-pointer ${
+              location.pathname === '/teacher/student-progress'
+                ? 'bg-[#15ab5d] text-white shadow-xs'
+                : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
+            }`}
           >
             <TrendingUp className="w-4 h-4 stroke-[2.2]" />
             <span>Student Progress</span>
           </button>
 
           <button
-            onClick={() => {}}
-            className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+            onClick={() => navigate('/teacher/settings')}
+            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors cursor-pointer ${
+              location.pathname === '/teacher/settings'
+                ? 'bg-[#15ab5d] text-white shadow-xs'
+                : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
+            }`}
           >
             <Settings className="w-4 h-4 stroke-[2.2]" />
             <span>Settings</span>
@@ -62,7 +70,7 @@ export const Sidebar: React.FC = () => {
 
         <div className="space-y-1">
           <button
-            onClick={() => {}}
+            onClick={() => alert('Help Center: Contact support or view teacher user guide.')}
             className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
           >
             <HelpCircle className="w-4.5 h-4.5 stroke-[2]" />
