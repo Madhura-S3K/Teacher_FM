@@ -32,24 +32,28 @@ export const DashboardHeader: React.FC = () => {
         >
           Dashboard
         </Link>
-        <button
-          onClick={() => alert('Courses portal coming soon.')}
-          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+
+        <Link
+          to="/teacher/student-progress"
+          className={`transition-colors ${
+            location.pathname === '/teacher/student-progress'
+              ? 'text-[#15ab5d]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
         >
-          Courses
-        </button>
-        <button
-          onClick={() => alert('Schedule portal coming soon.')}
-          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+          Student Progress
+        </Link>
+
+        <Link
+          to="/teacher/settings"
+          className={`transition-colors ${
+            location.pathname === '/teacher/settings'
+              ? 'text-[#15ab5d]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
         >
-          Schedule
-        </button>
-        <button
-          onClick={() => alert('Resources portal coming soon.')}
-          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
-        >
-          Resources
-        </button>
+          Settings
+        </Link>
       </nav>
 
       {/* Right Controls */}
