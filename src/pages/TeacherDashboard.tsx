@@ -9,7 +9,7 @@ import { Users, GraduationCap, TrendingUp, AlertTriangle } from 'lucide-react';
 
 export const TeacherDashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#fcfcfd] flex flex-col md:flex-row antialiased selection:bg-purple-100">
+    <div className="min-h-screen bg-[#fcfcfd] dark:bg-[#101014] flex flex-col md:flex-row antialiased selection:bg-purple-100 dark:selection:bg-purple-900/40 transition-colors">
       {/* Left Sidebar */}
       <Sidebar />
 
@@ -23,10 +23,10 @@ export const TeacherDashboard: React.FC = () => {
           {/* Greeting & Class Selector Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
-              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+              <h1 className="text-3xl font-extrabold text-gray-900 dark:text-[#f5f5f5] tracking-tight">
                 Good morning, Teacher!
               </h1>
-              <p className="text-sm text-gray-500 font-medium mt-1">
+              <p className="text-sm text-gray-500 dark:text-[#a1a1aa] font-medium mt-1">
                 Here's an overview of your students' learning progress.
               </p>
             </div>
@@ -40,8 +40,8 @@ export const TeacherDashboard: React.FC = () => {
             {/* Card 1: Students Enrolled */}
             <KpiCard
               icon={Users}
-              iconBgColor="bg-[#ceecdd]"
-              iconColor="text-[#15ab5d]"
+              iconBgColor="bg-[#ceecdd] dark:bg-[#12a35a]/20"
+              iconColor="text-[#15ab5d] dark:text-[#15ab5d]"
               value={42}
               label="Students enrolled"
             />
@@ -49,12 +49,12 @@ export const TeacherDashboard: React.FC = () => {
             {/* Card 2: Active This Week */}
             <KpiCard
               icon={GraduationCap}
-              iconBgColor="bg-[#dbeafe]"
-              iconColor="text-[#3b82f6]"
+              iconBgColor="bg-[#dbeafe] dark:bg-[#162744]"
+              iconColor="text-[#3b82f6] dark:text-[#60a5fa]"
               value={36}
               subLabel={
                 <>
-                  <span className="text-[#15ab5d] font-semibold">85.7%</span> active this week
+                  <span className="text-[#15ab5d] dark:text-[#15ab5d] font-semibold">85.7%</span> active this week
                 </>
               }
             />
@@ -62,12 +62,12 @@ export const TeacherDashboard: React.FC = () => {
             {/* Card 3: Average Progress */}
             <KpiCard
               icon={TrendingUp}
-              iconBgColor="bg-[#fce7f3]"
-              iconColor="text-[#ec4899]"
+              iconBgColor="bg-[#fce7f3] dark:bg-[#513143]"
+              iconColor="text-[#ec4899] dark:text-[#f472b6]"
               value="78%"
               subLabel={
                 <>
-                  <span className="text-[#15ab5d] font-semibold">↑6%</span> this month
+                  <span className="text-[#15ab5d] dark:text-[#15ab5d] font-semibold">↑6%</span> this month
                 </>
               }
             />
@@ -75,11 +75,11 @@ export const TeacherDashboard: React.FC = () => {
             {/* Card 4: Require Follow-up */}
             <KpiCard
               icon={AlertTriangle}
-              iconBgColor="bg-[#fee2e2]"
-              iconColor="text-[#ef4444]"
+              iconBgColor="bg-[#fee2e2] dark:bg-[#3f191b]"
+              iconColor="text-[#ef4444] dark:text-[#f87171]"
               value={6}
               subLabel={
-                <span className="text-[#ef4444] font-medium">
+                <span className="text-[#ef4444] dark:text-[#f87171] font-medium">
                   Require follow-up
                 </span>
               }
