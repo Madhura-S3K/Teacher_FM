@@ -6,6 +6,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { WelcomeBackPage } from './pages/WelcomeBackPage';
 import { TeacherLoginPage } from './pages/TeacherLoginPage';
 import { ParentLoginPage } from './pages/ParentLoginPage';
+import { AdminLoginPage } from './pages/AdminLoginPage';
 
 import { TeacherDashboard } from './pages/TeacherDashboard';
 import { StudentProgressPage } from './pages/StudentProgressPage';
@@ -14,6 +15,10 @@ import { TeacherSettingsPage } from './pages/TeacherSettingsPage';
 import { ParentDashboard } from './pages/parent/ParentDashboard';
 import { ParentChildProgressPage } from './pages/parent/ParentChildProgressPage';
 import { ParentSettingsPage } from './pages/parent/ParentSettingsPage';
+
+import { AdminDashboard } from './pages/admin/AdminDashboard';
+import { AdminPlatformProgressPage } from './pages/admin/AdminPlatformProgressPage';
+import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 
 import { PlaceholderLoginPage } from './pages/PlaceholderLoginPage';
 
@@ -27,8 +32,8 @@ function App() {
             <Route path="/" element={<WelcomeBackPage />} />
             <Route path="/login/teacher" element={<TeacherLoginPage />} />
             <Route path="/login/parent" element={<ParentLoginPage />} />
+            <Route path="/login/admin" element={<AdminLoginPage />} />
             <Route path="/login/student" element={<PlaceholderLoginPage role="Student" color="text-[#7b4dff]" />} />
-            <Route path="/login/admin" element={<PlaceholderLoginPage role="Admin" color="text-[#e18a2c]" />} />
 
             {/* Teacher Protected Routes */}
             <Route
@@ -78,6 +83,32 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={['parent']}>
                   <ParentSettingsPage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Admin Protected Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/platform-progress"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminPlatformProgressPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/settings"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminSettingsPage />
                 </ProtectedRoute>
               }
             />

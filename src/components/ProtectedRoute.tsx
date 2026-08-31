@@ -21,6 +21,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, ch
     if (user.role === 'parent') {
       return <Navigate to="/parent/dashboard" replace />;
     }
+    if (user.role === 'admin') {
+      return <Navigate to="/admin/dashboard" replace />;
+    }
     return <Navigate to="/" replace />;
   }
 
