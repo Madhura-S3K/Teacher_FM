@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer';
 
 import studentAvatar from '../assets/avatars/student.png';
 import teacherAvatar from '../assets/avatars/teacher.png';
-import parentAvatar from '../assets/avatars/parent.png';
+import parentAvatar from '../assets/avatars/parent_avatar.png';
 import adminAvatar from '../assets/avatars/admin.png';
 
 interface RoleCardProps {

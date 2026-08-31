@@ -4,11 +4,14 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
 
+import { useAuth } from '../context/AuthContext';
+
 export const TeacherLoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +21,7 @@ export const TeacherLoginPage: React.FC = () => {
     }
 
     setError('');
+    login('teacher', { name: 'Anaya Sharma', email });
     navigate('/teacher/dashboard');
   };
 

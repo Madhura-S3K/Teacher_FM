@@ -9,20 +9,19 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
-import { useAuth } from '../context/AuthContext';
-
-export const Sidebar: React.FC = () => {
+export const ParentSidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useAuth();
 
   const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
-    return localStorage.getItem('futureminds_sidebar_collapsed') === 'true';
+    return localStorage.getItem('futureminds_parent_sidebar_collapsed') === 'true';
   });
 
   useEffect(() => {
-    localStorage.setItem('futureminds_sidebar_collapsed', String(isCollapsed));
+    localStorage.setItem('futureminds_parent_sidebar_collapsed', String(isCollapsed));
   }, [isCollapsed]);
 
   const handleLogout = () => {
@@ -34,26 +33,26 @@ export const Sidebar: React.FC = () => {
     {
       id: 'dashboard',
       label: 'Dashboard',
-      path: '/teacher/dashboard',
+      path: '/parent/dashboard',
       icon: LayoutGrid,
     },
     {
-      id: 'student-progress',
-      label: 'Student Progress',
-      path: '/teacher/student-progress',
+      id: 'child-progress',
+      label: 'Child Progress',
+      path: '/parent/child-progress',
       icon: TrendingUp,
     },
     {
       id: 'settings',
       label: 'Settings',
-      path: '/teacher/settings',
+      path: '/parent/settings',
       icon: Settings,
     },
   ];
 
   return (
     <aside
-      className={`bg-[#f7f1ff] dark:bg-[#121218] border-r border-purple-100/60 dark:border-[#27272f] min-h-screen flex flex-col justify-between flex-shrink-0 transition-all duration-300 ${
+      className={`bg-[#f4f7fe] dark:bg-[#121218] border-r border-blue-100/60 dark:border-[#27272f] min-h-screen flex flex-col justify-between flex-shrink-0 transition-all duration-300 ${
         isCollapsed ? 'w-20 p-3 items-center' : 'w-64 p-6'
       }`}
     >
@@ -67,19 +66,19 @@ export const Sidebar: React.FC = () => {
         >
           {isCollapsed ? (
             <div
-              onClick={() => navigate('/teacher/dashboard')}
-              className="w-10 h-10 rounded-xl bg-[#15ab5d] text-white font-extrabold text-base flex items-center justify-center cursor-pointer shadow-xs"
-              title="FutureMinds AI Teacher Portal"
+              onClick={() => navigate('/parent/dashboard')}
+              className="w-10 h-10 rounded-xl bg-[#0d52ce] text-white font-extrabold text-base flex items-center justify-center cursor-pointer shadow-xs"
+              title="FutureMinds AI Parent Portal"
             >
               FM
             </div>
           ) : (
             <div>
-              <h1 className="text-xl font-bold text-[#15ab5d] tracking-tight">
+              <h1 className="text-xl font-extrabold text-[#0d52ce] dark:text-[#3b82f6] tracking-tight">
                 FutureMinds AI
               </h1>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
-                Teacher Portal
+                Parent Portal
               </p>
             </div>
           )}
@@ -87,7 +86,7 @@ export const Sidebar: React.FC = () => {
           {/* Toggle Button */}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-purple-100/60 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-blue-100/60 dark:hover:bg-gray-800 transition-colors cursor-pointer"
             aria-label={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
             title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
           >
@@ -113,11 +112,11 @@ export const Sidebar: React.FC = () => {
                 className={`w-full flex items-center transition-all cursor-pointer ${
                   isCollapsed
                     ? 'justify-center p-3 rounded-xl'
-                    : 'space-x-3 px-4 py-2.5 rounded-xl'
+                    : 'space-x-3 px-4 py-3 rounded-xl'
                 } font-semibold text-sm ${
                   isActive
-                    ? 'bg-[#15ab5d] text-white shadow-xs'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-purple-100/50 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
+                    ? 'bg-[#0d52ce] text-white shadow-sm'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-blue-50/70 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 <Icon className="w-4.5 h-4.5 stroke-[2.2] flex-shrink-0" />
@@ -134,13 +133,13 @@ export const Sidebar: React.FC = () => {
 
         <div className="space-y-1 w-full">
           <button
-            onClick={() => alert('Help Center: Contact support or view teacher user guide.')}
+            onClick={() => alert('Help Center: View parent guide or contact school support.')}
             title={isCollapsed ? 'Help Center' : undefined}
             className={`w-full flex items-center transition-all cursor-pointer ${
               isCollapsed
                 ? 'justify-center p-2.5 rounded-lg'
                 : 'space-x-3 px-3 py-2 rounded-lg'
-            } font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-purple-100/40 dark:hover:bg-gray-800/40`}
+            } font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50/50 dark:hover:bg-gray-800/40`}
           >
             <HelpCircle className="w-4.5 h-4.5 stroke-[2] flex-shrink-0" />
             {!isCollapsed && <span>Help Center</span>}
@@ -153,7 +152,7 @@ export const Sidebar: React.FC = () => {
               isCollapsed
                 ? 'justify-center p-2.5 rounded-lg'
                 : 'space-x-3 px-3 py-2 rounded-lg'
-            } font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-purple-100/40 dark:hover:bg-gray-800/40`}
+            } font-semibold text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50/50 dark:hover:bg-gray-800/40`}
           >
             <LogOut className="w-4.5 h-4.5 stroke-[2] flex-shrink-0" />
             {!isCollapsed && <span>Logout</span>}
