@@ -32,7 +32,7 @@ export const ClassProgressChart: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="bg-white dark:bg-[#1a1a21] rounded-2xl p-6 sm:p-7 border border-gray-100/80 dark:border-[#27272f] shadow-md dark:shadow-none shadow-purple-900/5 mt-6 transition-colors">
+    <div className="bg-white dark:bg-[#1a1a21] rounded-2xl p-6 sm:p-7 border border-gray-100/80 dark:border-[#27272f] shadow-md dark:shadow-none shadow-purple-900/5 transition-colors h-full flex flex-col justify-between">
       {/* Header inside Chart Card */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div>
