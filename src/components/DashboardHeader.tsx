@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Settings, Moon, Sun } from 'lucide-react';
+import { Bell, Moon, Sun } from 'lucide-react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import teacherProfileAvatar from '../assets/avatars/teacher_login.png';
@@ -9,19 +9,13 @@ export const DashboardHeader: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isSettingsPage = location.pathname === '/teacher/settings';
-
   return (
-    <header className="w-full bg-[#fcfcfd] dark:bg-[#101014] border-b border-gray-200/60 dark:border-[#27272f] py-3.5 px-6 md:px-8 flex justify-between items-center transition-colors">
-      {/* Left Brand Title (Visible when header spans top) */}
-      <Link to="/teacher/dashboard" className="flex items-center space-x-2">
-        <span className="text-[#15ab5d] text-lg font-bold tracking-tight">
-          FutureMinds AI
-        </span>
-      </Link>
+    <header className="w-full bg-[#fcfcfd] dark:bg-[#101014] border-b border-gray-200/60 dark:border-[#27272f] py-3.5 px-6 md:px-8 flex items-center justify-between transition-colors">
+      {/* Left empty spacer to balance right controls for true horizontal centering */}
+      <div className="hidden sm:block w-32" />
 
       {/* Center Navigation Links */}
-      <nav className="hidden md:flex items-center space-x-6 text-xs sm:text-sm font-semibold">
+      <nav className="flex items-center justify-center space-x-6 text-xs sm:text-sm font-semibold flex-1">
         <Link
           to="/teacher/dashboard"
           className={`transition-colors ${
@@ -57,7 +51,7 @@ export const DashboardHeader: React.FC = () => {
       </nav>
 
       {/* Right Controls */}
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center justify-end space-x-3 w-32">
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
@@ -78,19 +72,6 @@ export const DashboardHeader: React.FC = () => {
         >
           <Bell className="w-4.5 h-4.5 stroke-[1.8]" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-[#101014]" />
-        </button>
-
-        {/* Settings Active/Quick Icon */}
-        <button
-          onClick={() => navigate('/teacher/settings')}
-          aria-label="Settings"
-          className={`p-2 rounded-full transition-colors cursor-pointer ${
-            isSettingsPage
-              ? 'bg-[#15ab5d] text-white'
-              : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1a1a21]'
-          }`}
-        >
-          <Settings className="w-4.5 h-4.5 stroke-[1.8]" />
         </button>
 
         {/* Profile Avatar */}

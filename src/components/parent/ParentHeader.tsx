@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Bell, Moon, Sun, ChevronDown, LogOut, Settings } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
 import parentAvatar from '../../assets/avatars/parent.png';
@@ -9,6 +9,7 @@ export const ParentHeader: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = () => {
@@ -17,9 +18,48 @@ export const ParentHeader: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-white dark:bg-[#101014] border-b border-gray-200/60 dark:border-[#27272f] py-3.5 px-6 md:px-8 flex justify-end items-center transition-colors relative z-20">
+    <header className="w-full bg-white dark:bg-[#101014] border-b border-gray-200/60 dark:border-[#27272f] py-3.5 px-6 md:px-8 flex items-center justify-between transition-colors relative z-20">
+      {/* Left empty spacer to balance right controls for true horizontal centering */}
+      <div className="hidden sm:block w-48" />
+
+      {/* Center Navigation Links */}
+      <nav className="flex items-center justify-center space-x-6 text-xs sm:text-sm font-semibold flex-1">
+        <Link
+          to="/parent/dashboard"
+          className={`transition-colors ${
+            location.pathname === '/parent/dashboard'
+              ? 'text-[#0d52ce] dark:text-[#3b82f6]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
+        >
+          Dashboard
+        </Link>
+
+        <Link
+          to="/parent/child-progress"
+          className={`transition-colors ${
+            location.pathname === '/parent/child-progress'
+              ? 'text-[#0d52ce] dark:text-[#3b82f6]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
+        >
+          Child Progress
+        </Link>
+
+        <Link
+          to="/parent/settings"
+          className={`transition-colors ${
+            location.pathname === '/parent/settings'
+              ? 'text-[#0d52ce] dark:text-[#3b82f6]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
+        >
+          Settings
+        </Link>
+      </nav>
+
       {/* Right Controls */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-end space-x-4 w-48">
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}

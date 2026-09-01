@@ -12,6 +12,8 @@ import {
 
 import { useAuth } from '../context/AuthContext';
 
+import fmLogo from '../assets/fm_logo.png';
+
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,16 +70,30 @@ export const Sidebar: React.FC = () => {
           {isCollapsed ? (
             <div
               onClick={() => navigate('/teacher/dashboard')}
-              className="w-10 h-10 rounded-xl bg-[#15ab5d] text-white font-extrabold text-base flex items-center justify-center cursor-pointer shadow-xs"
+              className="w-10 h-10 flex items-center justify-center cursor-pointer mx-auto"
               title="FutureMinds AI Teacher Portal"
             >
-              FM
+              <img
+                src={fmLogo}
+                alt="FutureMinds AI Labs"
+                className="w-9 h-9 object-contain"
+              />
             </div>
           ) : (
-            <div>
-              <h1 className="text-xl font-bold text-[#15ab5d] tracking-tight">
-                FutureMinds AI
-              </h1>
+            <div
+              onClick={() => navigate('/teacher/dashboard')}
+              className="cursor-pointer flex flex-col items-start"
+            >
+              <div className="flex items-center space-x-2">
+                <img
+                  src={fmLogo}
+                  alt="FutureMinds AI Labs"
+                  className="h-7.5 w-auto object-contain"
+                />
+                <h1 className="text-lg font-bold text-[#15ab5d] tracking-tight">
+                  FutureMinds AI
+                </h1>
+              </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
                 Teacher Portal
               </p>

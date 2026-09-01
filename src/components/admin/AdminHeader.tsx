@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Bell, Moon, Sun, ChevronDown, LogOut, Settings } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
 import adminAvatar from '../../assets/avatars/admin.png';
@@ -9,6 +9,7 @@ export const AdminHeader: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = () => {
@@ -17,9 +18,48 @@ export const AdminHeader: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-[#fdfaf5] dark:bg-[#101014] border-b border-amber-100/60 dark:border-[#27272f] py-3.5 px-6 md:px-8 flex justify-end items-center transition-colors relative z-20">
+    <header className="w-full bg-[#fdfaf5] dark:bg-[#101014] border-b border-amber-100/60 dark:border-[#27272f] py-3.5 px-6 md:px-8 flex items-center justify-between transition-colors relative z-20">
+      {/* Left empty spacer to balance right controls for true horizontal centering */}
+      <div className="hidden sm:block w-52" />
+
+      {/* Center Navigation Links */}
+      <nav className="flex items-center justify-center space-x-6 text-xs sm:text-sm font-semibold flex-1">
+        <Link
+          to="/admin/dashboard"
+          className={`transition-colors ${
+            location.pathname === '/admin/dashboard'
+              ? 'text-[#ff8a00] dark:text-[#f97316]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
+        >
+          Dashboard
+        </Link>
+
+        <Link
+          to="/admin/platform-progress"
+          className={`transition-colors ${
+            location.pathname === '/admin/platform-progress'
+              ? 'text-[#ff8a00] dark:text-[#f97316]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
+        >
+          Platform Progress
+        </Link>
+
+        <Link
+          to="/admin/settings"
+          className={`transition-colors ${
+            location.pathname === '/admin/settings'
+              ? 'text-[#ff8a00] dark:text-[#f97316]'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+          }`}
+        >
+          Settings
+        </Link>
+      </nav>
+
       {/* Right Controls */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-end space-x-4 w-52">
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}

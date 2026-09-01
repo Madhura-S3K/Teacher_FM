@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
+import fmLogo from '../../assets/fm_logo.png';
+
 export const ParentSidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -67,16 +69,30 @@ export const ParentSidebar: React.FC = () => {
           {isCollapsed ? (
             <div
               onClick={() => navigate('/parent/dashboard')}
-              className="w-10 h-10 rounded-xl bg-[#0d52ce] text-white font-extrabold text-base flex items-center justify-center cursor-pointer shadow-xs"
+              className="w-10 h-10 flex items-center justify-center cursor-pointer mx-auto"
               title="FutureMinds AI Parent Portal"
             >
-              FM
+              <img
+                src={fmLogo}
+                alt="FutureMinds AI Labs"
+                className="w-9 h-9 object-contain"
+              />
             </div>
           ) : (
-            <div>
-              <h1 className="text-xl font-extrabold text-[#0d52ce] dark:text-[#3b82f6] tracking-tight">
-                FutureMinds AI
-              </h1>
+            <div
+              onClick={() => navigate('/parent/dashboard')}
+              className="cursor-pointer flex flex-col items-start"
+            >
+              <div className="flex items-center space-x-2">
+                <img
+                  src={fmLogo}
+                  alt="FutureMinds AI Labs"
+                  className="h-7.5 w-auto object-contain"
+                />
+                <h1 className="text-lg font-extrabold text-[#0d52ce] dark:text-[#3b82f6] tracking-tight">
+                  FutureMinds AI
+                </h1>
+              </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
                 Parent Portal
               </p>

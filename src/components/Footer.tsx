@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <span className="text-[#7032e3] font-bold text-base tracking-tight">
-            FutureMinds
+            FutureMinds AI
           </span>
           <p className="text-[#8e8c99] text-xs mt-1">
             © 2024 FutureMinds Academy. All rights reserved.

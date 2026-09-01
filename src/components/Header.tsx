@@ -2,16 +2,22 @@ import React from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import fmLogo from '../assets/fm_logo.png';
 
 export const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="w-full bg-[#fdf8ff] dark:bg-[#101014] border-b border-[#ecebf3] dark:border-[#27272f] py-3.5 px-6 sm:px-12 flex justify-between items-center transition-colors">
-      <Link to="/" className="flex items-center space-x-1">
+      <Link to="/" className="flex items-center space-x-2.5">
         <span className="text-[#7032e3] dark:text-[#a855f7] text-2xl font-bold tracking-tight">
-          FutureMinds
+          FutureMinds AI
         </span>
+        <img
+          src={fmLogo}
+          alt="FutureMinds AI Labs"
+          className="h-8 w-auto object-contain"
+        />
       </Link>
 
       <div className="flex items-center space-x-3">
